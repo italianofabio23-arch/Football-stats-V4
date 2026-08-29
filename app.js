@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const loadBtn = document.getElementById("loadBtn");
   const status = document.getElementById("status");
   const matches = document.getElementById("matches");
-
+const standingsCache = {};
   const today = new Date();
   dateInput.value =
     today.getFullYear() +
