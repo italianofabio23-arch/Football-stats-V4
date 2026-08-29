@@ -91,6 +91,7 @@ const score = homeGoals != null && awayGoals != null
           <strong>${home} - ${away}</strong><br>
           🕒 ${time}
           ${score ? `<br>⚽ ${score}` : ""}
+          <br>🔎 League ID: ${game.league?.id || "N/D"} | Home ID: ${game.teams?.home?.id || "N/D"} | Away ID: ${game.teams?.away?.id || "N/D"}
         `;
 
         matches.appendChild(card);
