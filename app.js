@@ -96,6 +96,23 @@ if (!standings && leagueCode) {
 }          
         const homeTeam = standings.find(t => t.team?.id === homeId);  
         const awayTeam = standings.find(t => t.team?.id === awayId);
+        const homeForm = homeTeam?.form || "";
+const awayForm = awayTeam?.form || "";
+        const formScore = (form) => {
+  const results = form.replace(/,/g, "").slice(-5);
+  if (!results) return 0.5;
+
+  let points = 0;
+
+  for (const result of results) {
+    if (result === "W") points += 3;
+    else if (result === "D") points += 1;
+  }
+
+  return points / (results.length * 3);
+};
+        const homeFormScore = formScore(homeForm);
+const awayFormScore = formScore(awayForm);
         const leaguePlayed = standings.reduce(
   (sum, t) => sum + (t.playedGames ?? 0), 0
 );
@@ -142,6 +159,9 @@ const homeAttack = homeGF / leagueAvg;
 const homeDefense = homeGA / leagueAvg;
 const awayAttack = awayGF / leagueAvg;
 const awayDefense = awayGA / leagueAvg;
+        const formDiff = homeFormScore - awayFormScore;
+const homeFormFactor = 1 + formDiff * 0.15;
+const awayFormFactor = 1 - formDiff * 0.15;
 
 const xgHome = Math.max(
   0.20,
