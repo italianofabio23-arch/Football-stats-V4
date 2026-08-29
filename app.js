@@ -168,7 +168,7 @@ const xgHome = Math.max(
   leagueAvg *
     homeAttack *
     awayDefense *
-    1.12
+    1.12 * homeFormFactor
 );
 
 const xgAway = Math.max(
@@ -176,7 +176,7 @@ const xgAway = Math.max(
   leagueAvg *
     awayAttack *
     homeDefense *
-    0.88
+    0.88 * awayFormFactor
 );
 
 function factorial(n) {
