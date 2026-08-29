@@ -83,6 +83,7 @@ const score = homeGoals != null && awayGoals != null
         const homeId = game.teams?.home?.id;
 const awayId = game.teams?.away?.id;
 const fixtureId = game.fixture?.id;
+        const prediction = { home: 40, draw: 30, away: 30 };
         const card = document.createElement("div");
 
         card.style.cssText =
@@ -95,7 +96,7 @@ const fixtureId = game.fixture?.id;
           ${score ? `<br>⚽ ${score}` : ""}
           <br><br>
 <b>📊 Analisi:</b><br>
-1: --% &nbsp; X: --% &nbsp; 2: --%
+1: ${prediction.home}% &nbsp; X: ${prediction.draw}% &nbsp; 2: ${prediction.away}%
         `;
 
         matches.appendChild(card);
