@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      games.forEach(game => {
+      for (const game of games) {
         console.log("DATI PARTITA:", game);
       const home = game.teams?.home?.name || "Casa";
       const away = game.teams?.away?.name || "Trasferta";
