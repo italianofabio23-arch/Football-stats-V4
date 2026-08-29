@@ -266,7 +266,7 @@ const doubleChance12 = homeProb + awayProb;
         ${isPrematch ? '<br>⚽ xG Casa: ' + xgHome.toFixed(2) + ' &nbsp; xG Trasferta: ' + xgAway.toFixed(2) : ''}
         ${isPrematch ? '<br>🛡️ Doppia Chance: 1X ' + doubleChance1X + '% &nbsp; X2 ' + doubleChanceX2 + '% &nbsp; 12 ' + doubleChance12 + '%' : ''}
       ${isPrematch ? '<br>⚽ Over 1.5: ' + over15Prob + '% &nbsp; Under 1.5: ' + under15Prob + '%<br>🎯 Over 2.5: ' + over25Prob + '% &nbsp; Under 2.5: ' + under25Prob + '%<br>🤝 GG: ' + ggProb + '% &nbsp; NG: ' + ngProb + '%' : ''}
-       ${isPrematch &&  topMarket.name? '<br>🔥 TOP ≥80%: ' +topMarket.name + ' ' +  topMarket.value+ '%' : ''}
+       ${isPrematch && topMarket.value >= 80 ? '<br>🔥 TOP ≥80%: ' + topMarket.name + ' ' + topMarket.value + '%' : ''}
         ${isPrematch
   ? '<br><b>📊 Pronostico pre-match:</b> 1: ' + prediction.home + '% &nbsp; X: ' + prediction.draw + '% &nbsp; 2: ' + prediction.away + '%'
   : '<br><b>⏱️ Pronostico:</b> non disponibile (partita iniziata/terminata)'
