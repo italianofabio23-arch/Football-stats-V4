@@ -90,6 +90,9 @@ const score = homeGoals != null && awayGoals != null
           <strong>${home} - ${away}</strong><br>
           🕒 ${time}
           ${score ? `<br>⚽ ${score}` : ""}
+          <br><br>
+<b>📊 Analisi:</b><br>
+1: --% &nbsp; X: --% &nbsp; 2: --%
         `;
 
         matches.appendChild(card);
