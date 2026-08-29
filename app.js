@@ -83,16 +83,62 @@ const score = homeGoals != null && awayGoals != null
         const homeId = game.teams?.home?.id;
 const awayId = game.teams?.away?.id;
 const fixtureId = game.fixture?.id;
-        const seed = Number(fixtureId || homeId || 1);
-const homeChance = 35 + (seed % 21);
-const drawChance = 20 + (seed % 11);
-const awayChance = 100 - homeChance - drawChance;
-
-const prediction = {
-  home: homeChance,
-  draw: drawChance,
-  away: awayChance
+    const leagueCode = game.league?.code; 
+        let prediction = {
+  home: 0,
+  draw: 0,
+  away: 0
 };
+
+if (leagueCode && homeId && awayId) {
+  try {
+    const standingsResponse = await fetch(
+      "https://football-stats-v3.onrender.com/api/football/competitions/" +
+      leagueCode +
+      "/standings"
+    );
+
+    if (standingsResponse.ok) {
+      const standingsData = await standingsResponse.json();
+      const table = standingsData?.standings?.[0]?.table || [];
+
+      const homeTeam = table.find(t => t.team?.id === homeId);
+      const awayTeam = table.find(t => t.team?.id === awayId);
+
+      if (homeTeam && awayTeam) {
+        const homeStrength = Math.max(
+          1,
+          (homeTeam.points || 0) +
+          (homeTeam.goalDifference || 0) +
+          5
+        );
+
+        const awayStrength = Math.max(
+          1,
+          (awayTeam.points || 0) +
+          (awayTeam.goalDifference || 0)
+        );
+
+        const totalStrength = homeStrength + awayStrength;
+
+        prediction.draw = 25;
+        prediction.home = Math.round(
+          (homeStrength / totalStrength) * 75
+        );
+
+        prediction.home = Math.max(
+          10,
+          Math.min(70, prediction.home)
+        );
+
+        prediction.away =
+          100 - prediction.home - prediction.draw;
+      }
+    }
+  } catch (e) {
+    console.error("Errore classifica:", e);
+  }
+}
         const card = document.createElement("div");
 
         card.style.cssText =
