@@ -238,7 +238,7 @@ const prediction = {
           🕒 ${time}
           ${score ? `<br>⚽ ${score}` : ""}
           <br>🔎 League ID: ${game.league?.id || "N/D"} | Home ID: ${game.teams?.home?.id || "N/D"} | Away ID: ${game.teams?.away?.id || "N/D"}
-        ${isPrematch ? '<br>⚽ xG Casa: ' + xGHome.toFixed(2) + ' &nbsp; xG Trasferta: ' + xGAway.toFixed(2) : ''}
+        ${isPrematch ? '<br>⚽ xG Casa: ' + xgHome.toFixed(2) + ' &nbsp; xG Trasferta: ' + xgAway.toFixed(2) : ''}
         ${isPrematch
   ? '<br><b>📊 Pronostico pre-match:</b> 1: ' + prediction.home + '% &nbsp; X: ' + prediction.draw + '% &nbsp; 2: ' + prediction.away + '%'
   : '<br><b>⏱️ Pronostico:</b> non disponibile (partita iniziata/terminata)'
