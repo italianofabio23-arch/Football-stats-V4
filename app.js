@@ -114,7 +114,7 @@ if (!standings && leagueCode) {
         `;
 
         matches.appendChild(card);
-      });
+      }
 
     } catch (error) {
       console.error(error);
