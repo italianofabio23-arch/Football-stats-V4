@@ -277,7 +277,7 @@ const doubleChance12 = homeProb + awayProb;
   : '<br><b>⏱️ Pronostico:</b> non disponibile (partita iniziata/terminata)'
         }
         `;
-if (topOnly && topMarkets.length === 0) return;
+if (topOnly && topMarkets.length === 0) continue;
         matches.appendChild(card);
       }
 
