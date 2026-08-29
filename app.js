@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <label>Data:</label>
       <input type="date" id="date">
       <button id="loadBtn">Aggiorna</button>
+      <button id="topOnlyBtn">🔥 Solo TOP ≥80%</button>
     </div>
 
     <div id="status">Pronto</div>
@@ -19,9 +20,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const dateInput = document.getElementById("date");
   const loadBtn = document.getElementById("loadBtn");
+  const topOnlyBtn = document.getElementById("topOnlyBtn");
   const status = document.getElementById("status");
   const matches = document.getElementById("matches");
 const standingsCache = {};
+  let topOnly = false;
   const today = new Date();
   dateInput.value =
     today.getFullYear() +
@@ -274,7 +277,7 @@ const doubleChance12 = homeProb + awayProb;
   : '<br><b>⏱️ Pronostico:</b> non disponibile (partita iniziata/terminata)'
         }
         `;
-
+if (topOnly && topMarkets.length === 0) return;
         matches.appendChild(card);
       }
 
@@ -285,6 +288,11 @@ const doubleChance12 = homeProb + awayProb;
   }
 
   loadBtn.addEventListener("click", loadMatches);
+  topOnlyBtn.addEventListener("click", () => {
+  topOnly = !topOnly;
+  topOnlyBtn.textContent = topOnly ? "⚽ Mostra tutte" : "🔥 Solo TOP ≥80%";
+  loadMatches();
+});
   loadMatches();
 
 });
