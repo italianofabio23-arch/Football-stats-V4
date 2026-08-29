@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       games.forEach(game => {
+        console.log("DATI PARTITA:", game);
       const home = game.teams?.home?.name || "Casa";
       const away = game.teams?.away?.name || "Trasferta";
       const competition = game.league?.name || "";
