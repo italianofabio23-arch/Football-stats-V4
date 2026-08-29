@@ -89,6 +89,18 @@ const score = homeGoals != null && awayGoals != null
 if (!standings && leagueCode) {
   const r = await fetch("https://football-stats-v3.onrender.com/api/football?path=/standings&league=" + leagueCode);
   const data = await r.json();
+  standings = data.standings?.[0]?.table || [];
+  standingsCache[leagueCode] = standings;
+}          
+        const homeTeam = standings.find(t => t.team?.id === homeId);  
+        const awayTeam = standings.find(t => t.team?.id === awayId);
+        const homePoints = homeTeam?.points ?? 0;
+        const awayPoints = awayTeam?.points ?? 0;
+        const totalPoints = homePoints + awayPoints;
+        const homeProb = totalPoints > 0 ? Math.round((homePoints / totalPoints) * 100) : 50;
+        const awayProb = totalPoints > 0 ? Math.round((awayPoints / totalPoints) * 100) : 50;
+        const drawProb = Math.max(0, 100 - homeProb - awayProb);
+        const prediction = { home: homeProb, draw: drawProb, away: awayProb };
         card.style.cssText =
           "border:1px solid #ccc;padding:12px;margin:10px 0;border-radius:8px;";
 
@@ -98,6 +110,7 @@ if (!standings && leagueCode) {
           🕒 ${time}
           ${score ? `<br>⚽ ${score}` : ""}
           <br>🔎 League ID: ${game.league?.id || "N/D"} | Home ID: ${game.teams?.home?.id || "N/D"} | Away ID: ${game.teams?.away?.id || "N/D"}
+        <br><b>📊 Pronostico:</b> 1: ${prediction.home}% &nbsp; X: ${prediction.draw}% &nbsp; 2: ${prediction.away}%
         `;
 
         matches.appendChild(card);
