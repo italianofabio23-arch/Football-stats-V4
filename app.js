@@ -105,3 +105,6 @@ const score = homeGoals != null && awayGoals != null
   loadMatches();
 
 });
+// ===== V4 - INIZIO ANALISI STATISTICHE =====
+console.log("Modulo analisi V4 pronto");
+// ===== V4 - FINE ANALISI STATISTICHE =====
