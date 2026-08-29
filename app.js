@@ -133,11 +133,10 @@ if (leagueCode && homeId && awayId) {
 
         prediction.away =
           100 - prediction.home - prediction.draw;
+        }
+      } catch (e) {
+        console.error("Errore classifica:", e);
       }
-    }
-  } catch (e) {
-    console.error("Errore classifica:", e);
-  }
 }
         const card = document.createElement("div");
 
