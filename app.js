@@ -82,7 +82,13 @@ const score = homeGoals != null && awayGoals != null
   ? `${homeGoals} - ${awayGoals}`
   : "";
         const card = document.createElement("div");
-
+        const homeId = game.teams?.home?.id;
+        const awayId = game.teams?.away?.id;
+        const leagueCode = game.league?.code;
+        let standings = standingsCache[leagueCode];
+if (!standings && leagueCode) {
+  const r = await fetch("https://football-stats-v3.onrender.com/api/football?path=/standings&league=" + leagueCode);
+  const data = await r.json();
         card.style.cssText =
           "border:1px solid #ccc;padding:12px;margin:10px 0;border-radius:8px;";
 
