@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const data = await response.json();
 
-      const games = data.matches || [];
+      const games = data.response || [];
 
       status.textContent = "Partite trovate: " + games.length;
 
