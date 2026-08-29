@@ -97,7 +97,7 @@ if (!standings && leagueCode) {
         const homePoints = homeTeam?.points ?? 0;
         const awayPoints = awayTeam?.points ?? 0;
         const totalPoints = homePoints + awayPoints;
-        const homeProb = totalPoints > 0 ? Math.round((homePoints / totalPoints) * 100) : 50;
+    const homeProb = totalPoints > 0 ? Math.round(25 + (homePoints / totalPoints) * 50) : 40;
         const awayProb = totalPoints > 0 ? Math.round((awayPoints / totalPoints) * 100) : 50;
         const drawProb = Math.max(0, 100 - homeProb - awayProb);
         const prediction = { home: homeProb, draw: drawProb, away: awayProb };
