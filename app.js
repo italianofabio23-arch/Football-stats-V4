@@ -76,6 +76,8 @@ const standingsCache = {};
       minute: "2-digit"
     })
   : "";
+        const fixtureDate = game.fixture?.date ? new Date(game.fixture.date) : null;
+const isPrematch = fixtureDate ? fixtureDate > new Date() : false;
 const homeGoals = game.goals?.home;
 const awayGoals = game.goals?.away;
 const score = homeGoals != null && awayGoals != null
@@ -216,7 +218,10 @@ const prediction = {
           🕒 ${time}
           ${score ? `<br>⚽ ${score}` : ""}
           <br>🔎 League ID: ${game.league?.id || "N/D"} | Home ID: ${game.teams?.home?.id || "N/D"} | Away ID: ${game.teams?.away?.id || "N/D"}
-        <br><b>📊 Pronostico:</b> 1: ${prediction.home}% &nbsp; X: ${prediction.draw}% &nbsp; 2: ${prediction.away}%
+        ${isPrematch
+  ? '<br><b>📊 Pronostico pre-match:</b> 1: ' + prediction.home + '% &nbsp; X: ' + prediction.draw + '% &nbsp; 2: ' + prediction.away + '%'
+  : '<br><b>⏱️ Pronostico:</b> non disponibile (partita iniziata/terminata)'
+        }
         `;
 
         matches.appendChild(card);
