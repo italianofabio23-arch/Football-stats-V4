@@ -83,7 +83,16 @@ const score = homeGoals != null && awayGoals != null
         const homeId = game.teams?.home?.id;
 const awayId = game.teams?.away?.id;
 const fixtureId = game.fixture?.id;
-        const prediction = { home: 40, draw: 30, away: 30 };
+        const seed = Number(fixtureId || homeId || 1);
+const homeChance = 35 + (seed % 21);
+const drawChance = 20 + (seed % 11);
+const awayChance = 100 - homeChance - drawChance;
+
+const prediction = {
+  home: homeChance,
+  draw: drawChance,
+  away: awayChance
+};
         const card = document.createElement("div");
 
         card.style.cssText =
