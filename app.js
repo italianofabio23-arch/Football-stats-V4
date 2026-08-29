@@ -61,4 +61,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
       status.textContent = "Partite trovate: " + games.length;
 
-      if (
+            if (games.length === 0) {
+        matches.innerHTML = "<p>Nessuna partita trovata.</p>";
+        return;
+      }
+
+      games.forEach(game => {
+        const home = game.homeTeam?.name || "Casa";
+        const away = game.awayTeam?.name || "Trasferta";
+        const competition = game.competition?.name || "";
+
+        const time = game.utcDate
+          ? new Date(game.utcDate).toLocaleTimeString("it-IT", {
+              hour: "2-digit",
+              minute: "2-digit"
+            })
+          : "";
+
+        const card = document.createElement("div");
+
+        card.style.cssText =
+          "border:1px solid #ccc;padding:12px;margin:10px 0;border-radius:8px;";
+
+        card.innerHTML = `
+          <small>${competition}</small><br>
+          <strong>${home} - ${away}</strong><br>
+          🕒 ${time}
+        `;
+
+        matches.appendChild(card);
+      });
+
+    } catch (error) {
+      console.error(error);
+      status.textContent = "❌ " + error.message;
+    }
+  }
+
+  loadBtn.addEventListener("click", loadMatches);
+  loadMatches();
+
+});
