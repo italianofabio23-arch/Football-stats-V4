@@ -40,11 +40,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const date = dateInput.value;
 
       const response = await fetch(
-        "https://api.football-data.org/v4/matches?dateFrom=" +
-        date +
-        "&dateTo=" +
-        date
-      );
+  "https://football-stats-v3.onrender.com/api/football?path=matches&dateFrom=" +
+  date +
+  "&dateTo=" +
+  date
+);
 
       if (!response.ok) {
         throw new Error(
