@@ -80,64 +80,6 @@ const awayGoals = game.goals?.away;
 const score = homeGoals != null && awayGoals != null
   ? `${homeGoals} - ${awayGoals}`
   : "";
-        const homeId = game.teams?.home?.id;
-const awayId = game.teams?.away?.id;
-const fixtureId = game.fixture?.id;
-    const leagueCode = game.league?.code; 
-        let prediction = {
-  home: 0,
-  draw: 0,
-  away: 0
-};
-
-if (leagueCode && homeId && awayId) {
-  try {
-    const standingsResponse = await fetch(
-      "https://football-stats-v3.onrender.com/api/football/competitions/" +
-      leagueCode +
-      "/standings"
-    );
-
-    if (standingsResponse.ok) {
-      const standingsData = await standingsResponse.json();
-      const table = standingsData?.standings?.[0]?.table || [];
-
-      const homeTeam = table.find(t => t.team?.id === homeId);
-      const awayTeam = table.find(t => t.team?.id === awayId);
-
-      if (homeTeam && awayTeam) {
-        const homeStrength = Math.max(
-          1,
-          (homeTeam.points || 0) +
-          (homeTeam.goalDifference || 0) +
-          5
-        );
-
-        const awayStrength = Math.max(
-          1,
-          (awayTeam.points || 0) +
-          (awayTeam.goalDifference || 0)
-        );
-
-        const totalStrength = homeStrength + awayStrength;
-
-        prediction.draw = 25;
-        prediction.home = Math.round(
-          (homeStrength / totalStrength) * 75
-        );
-
-        prediction.home = Math.max(
-          10,
-          Math.min(70, prediction.home)
-        );
-
-        prediction.away =
-          100 - prediction.home - prediction.draw;
-        }
-      } catch (e) {
-        console.error("Errore classifica:", e);
-      }
-}
         const card = document.createElement("div");
 
         card.style.cssText =
@@ -148,9 +90,6 @@ if (leagueCode && homeId && awayId) {
           <strong>${home} - ${away}</strong><br>
           🕒 ${time}
           ${score ? `<br>⚽ ${score}` : ""}
-          <br><br>
-<b>📊 Analisi:</b><br>
-1: ${prediction.home}% &nbsp; X: ${prediction.draw}% &nbsp; 2: ${prediction.away}%
         `;
 
         matches.appendChild(card);
