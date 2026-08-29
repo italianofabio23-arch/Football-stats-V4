@@ -243,10 +243,16 @@ const prediction = {
         const doubleChance1X = homeProb + drawProb;
 const doubleChanceX2 = drawProb + awayProb;
 const doubleChance12 = homeProb + awayProb;
-        const topDC = [
+      const topMarket = [
   { name: "1X", value: doubleChance1X },
   { name: "X2", value: doubleChanceX2 },
-  { name: "12", value: doubleChance12 }
+  { name: "12", value: doubleChance12 },
+  { name: "Over 1.5", value: over15Prob },
+  { name: "Under 1.5", value: under15Prob },
+  { name: "Over 2.5", value: over25Prob },
+  { name: "Under 2.5", value: under25Prob },
+  { name: "GG", value: ggProb },
+  { name: "NG", value: ngProb }
 ].sort((a, b) => b.value - a.value)[0];
         card.style.cssText =
           "border:1px solid #ccc;padding:12px;margin:10px 0;border-radius:8px;";
@@ -260,7 +266,7 @@ const doubleChance12 = homeProb + awayProb;
         ${isPrematch ? '<br>⚽ xG Casa: ' + xgHome.toFixed(2) + ' &nbsp; xG Trasferta: ' + xgAway.toFixed(2) : ''}
         ${isPrematch ? '<br>🛡️ Doppia Chance: 1X ' + doubleChance1X + '% &nbsp; X2 ' + doubleChanceX2 + '% &nbsp; 12 ' + doubleChance12 + '%' : ''}
       ${isPrematch ? '<br>⚽ Over 1.5: ' + over15Prob + '% &nbsp; Under 1.5: ' + under15Prob + '%<br>🎯 Over 2.5: ' + over25Prob + '% &nbsp; Under 2.5: ' + under25Prob + '%<br>🤝 GG: ' + ggProb + '% &nbsp; NG: ' + ngProb + '%' : ''}
-       ${isPrematch && topDC.value >= 80 ? '<br>🔥 TOP ≥80%: ' + topDC.name + ' ' + topDC.value + '%' : ''}
+       ${isPrematch &&  topMarket.name? '<br>🔥 TOP ≥80%: ' +topMarket.name + ' ' +  topMarket.value+ '%' : ''}
         ${isPrematch
   ? '<br><b>📊 Pronostico pre-match:</b> 1: ' + prediction.home + '% &nbsp; X: ' + prediction.draw + '% &nbsp; 2: ' + prediction.away + '%'
   : '<br><b>⏱️ Pronostico:</b> non disponibile (partita iniziata/terminata)'
