@@ -40,9 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const date = dateInput.value;
 
       const response = await fetch(
-  "https://football-stats-v3.onrender.com/api/football?path=matches&dateFrom=" +
-  date +
-  "&dateTo=" +
+  "https://football-stats-v3.onrender.com/api/football?path=/fixtures&date=" +
   date
 );
 
