@@ -80,6 +80,9 @@ const awayGoals = game.goals?.away;
 const score = homeGoals != null && awayGoals != null
   ? `${homeGoals} - ${awayGoals}`
   : "";
+        const homeId = game.teams?.home?.id;
+const awayId = game.teams?.away?.id;
+const fixtureId = game.fixture?.id;
         const card = document.createElement("div");
 
         card.style.cssText =
