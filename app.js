@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
         card.innerHTML = `
           <small>${competition}</small><br>
           <strong>${home} - ${away}</strong><br>
-          🕒 ${time}`
+          🕒 ${time}
         `;
 
         matches.appendChild(card);
