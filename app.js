@@ -75,7 +75,11 @@ document.addEventListener("DOMContentLoaded", () => {
       minute: "2-digit"
     })
   : "";
-
+const homeGoals = game.goals?.home;
+const awayGoals = game.goals?.away;
+const score = homeGoals != null && awayGoals != null
+  ? `${homeGoals} - ${awayGoals}`
+  : "";
         const card = document.createElement("div");
 
         card.style.cssText =
@@ -85,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <small>${competition}</small><br>
           <strong>${home} - ${away}</strong><br>
           🕒 ${time}
+          ${score ? `<br>⚽ ${score}` : ""}
         `;
 
         matches.appendChild(card);
