@@ -65,16 +65,16 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       games.forEach(game => {
-        const home = game.homeTeam?.name || "Casa";
-        const away = game.awayTeam?.name || "Trasferta";
-        const competition = game.competition?.name || "";
+      const home = game.teams?.home?.name || "Casa";
+      const away = game.teams?.away?.name || "Trasferta";
+      const competition = game.league?.name || "";
 
-        const time = game.utcDate
-          ? new Date(game.utcDate).toLocaleTimeString("it-IT", {
-              hour: "2-digit",
-              minute: "2-digit"
-            })
-          : "";
+        const time = game.fixture?.date
+  ? new Date(game.fixture.date).toLocaleTimeString("it-IT", {
+      hour: "2-digit",
+      minute: "2-digit"
+    })
+  : "";
 
         const card = document.createElement("div");
 
