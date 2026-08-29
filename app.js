@@ -198,6 +198,9 @@ function poisson(k, lambda) {
 let pHome = 0;
 let pDraw = 0;
 let pAway = 0;
+        let pOver15 = 0;
+let pOver25 = 0;
+let pGG = 0;
 
 for (let hg = 0; hg <= 10; hg++) {
   for (let ag = 0; ag <= 10; ag++) {
@@ -208,11 +211,19 @@ for (let hg = 0; hg <= 10; hg++) {
     if (hg > ag) pHome += p;
     else if (hg === ag) pDraw += p;
     else pAway += p;
+    if (hg + ag >= 2) pOver15 += p;
+if (hg + ag >= 3) pOver25 += p;
+if (hg > 0 && ag > 0) pGG += p;
   }
 }
 
 const totalProb = pHome + pDraw + pAway;
-
+const over15Prob = Math.round((pOver15 / totalProb) * 100);
+const over25Prob = Math.round((pOver25 / totalProb) * 100);
+const ggProb = Math.round((pGG / totalProb) * 100);
+        const under15Prob = 100 - over15Prob;
+const under25Prob = 100 - over25Prob;
+const ngProb = 100 - ggProb;
 const homeProb = Math.round(
   (pHome / totalProb) * 100
 );
@@ -248,6 +259,7 @@ const doubleChance12 = homeProb + awayProb;
           <br>🔎 League ID: ${game.league?.id || "N/D"} | Home ID: ${game.teams?.home?.id || "N/D"} | Away ID: ${game.teams?.away?.id || "N/D"}
         ${isPrematch ? '<br>⚽ xG Casa: ' + xgHome.toFixed(2) + ' &nbsp; xG Trasferta: ' + xgAway.toFixed(2) : ''}
         ${isPrematch ? '<br>🛡️ Doppia Chance: 1X ' + doubleChance1X + '% &nbsp; X2 ' + doubleChanceX2 + '% &nbsp; 12 ' + doubleChance12 + '%' : ''}
+      ${isPrematch ? '<br>⚽ Over 1.5: ' + over15Prob + '% &nbsp; Under 1.5: ' + under15Prob + '%<br>🎯 Over 2.5: ' + over25Prob + '% &nbsp; Under 2.5: ' + under25Prob + '%<br>🤝 GG: ' + ggProb + '% &nbsp; NG: ' + ngProb + '%' : ''}
        ${isPrematch && topDC.value >= 80 ? '<br>🔥 TOP ≥80%: ' + topDC.name + ' ' + topDC.value + '%' : ''}
         ${isPrematch
   ? '<br><b>📊 Pronostico pre-match:</b> 1: ' + prediction.home + '% &nbsp; X: ' + prediction.draw + '% &nbsp; 2: ' + prediction.away + '%'
