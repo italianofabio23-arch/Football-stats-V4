@@ -94,13 +94,119 @@ if (!standings && leagueCode) {
 }          
         const homeTeam = standings.find(t => t.team?.id === homeId);  
         const awayTeam = standings.find(t => t.team?.id === awayId);
-        const homePoints = homeTeam?.points ?? 0;
-        const awayPoints = awayTeam?.points ?? 0;
-        const totalPoints = homePoints + awayPoints;
-    const homeProb = totalPoints > 0 ? Math.round(25 + (homePoints / totalPoints) * 50) : 40;
-        const awayProb = totalPoints > 0 ? Math.round((awayPoints / totalPoints) * 100) : 50;
-        const drawProb = Math.max(0, 100 - homeProb - awayProb);
-        const prediction = { home: homeProb, draw: drawProb, away: awayProb };
+        const leaguePlayed = standings.reduce(
+  (sum, t) => sum + (t.playedGames ?? 0), 0
+);
+
+const leagueGoals = standings.reduce(
+  (sum, t) => sum + (t.goalsFor ?? 0), 0
+);
+
+const leagueAvg =
+  leaguePlayed > 0 && leagueGoals > 0
+    ? leagueGoals / leaguePlayed
+    : 1.35;
+
+const priorGames = 5;
+
+const smoothRate = (value, played) =>
+  (value + leagueAvg * priorGames) /
+  (played + priorGames);
+
+const homePlayed = homeTeam?.playedGames ?? 0;
+const awayPlayed = awayTeam?.playedGames ?? 0;
+
+const homeGF = smoothRate(
+  homeTeam?.goalsFor ?? 0,
+  homePlayed
+);
+
+const homeGA = smoothRate(
+  homeTeam?.goalsAgainst ?? 0,
+  homePlayed
+);
+
+const awayGF = smoothRate(
+  awayTeam?.goalsFor ?? 0,
+  awayPlayed
+);
+
+const awayGA = smoothRate(
+  awayTeam?.goalsAgainst ?? 0,
+  awayPlayed
+);
+
+const homeAttack = homeGF / leagueAvg;
+const homeDefense = homeGA / leagueAvg;
+const awayAttack = awayGF / leagueAvg;
+const awayDefense = awayGA / leagueAvg;
+
+const xgHome = Math.max(
+  0.20,
+  leagueAvg *
+    homeAttack *
+    awayDefense *
+    1.12
+);
+
+const xgAway = Math.max(
+  0.20,
+  leagueAvg *
+    awayAttack *
+    homeDefense *
+    0.88
+);
+
+function factorial(n) {
+  let result = 1;
+  for (let i = 2; i <= n; i++) {
+    result *= i;
+  }
+  return result;
+}
+
+function poisson(k, lambda) {
+  return (
+    Math.exp(-lambda) *
+    Math.pow(lambda, k) /
+    factorial(k)
+  );
+}
+
+let pHome = 0;
+let pDraw = 0;
+let pAway = 0;
+
+for (let hg = 0; hg <= 10; hg++) {
+  for (let ag = 0; ag <= 10; ag++) {
+    const p =
+      poisson(hg, xgHome) *
+      poisson(ag, xgAway);
+
+    if (hg > ag) pHome += p;
+    else if (hg === ag) pDraw += p;
+    else pAway += p;
+  }
+}
+
+const totalProb = pHome + pDraw + pAway;
+
+const homeProb = Math.round(
+  (pHome / totalProb) * 100
+);
+
+const drawProb = Math.round(
+  (pDraw / totalProb) * 100
+);
+
+const awayProb =
+  100 - homeProb - drawProb;
+
+const prediction = {
+  home: homeProb,
+  draw: drawProb,
+  away: awayProb
+};
         card.style.cssText =
           "border:1px solid #ccc;padding:12px;margin:10px 0;border-radius:8px;";
 
