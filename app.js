@@ -61,6 +61,7 @@ const standingsCache = {};
       const games = data.response || [];
 
       status.textContent = "Partite trovate: " + games.length;
+      let visibleCount = 0;
 
             if (games.length === 0) {
         matches.innerHTML = "<p>Nessuna partita trovata.</p>";
@@ -278,9 +279,10 @@ const doubleChance12 = homeProb + awayProb;
         }
         `;
 if (topOnly && topMarkets.length === 0) continue;
+        visibleCount++;
         matches.appendChild(card);
       }
-
+status.textContent = "Partite trovate: " + visibleCount;
     } catch (error) {
       console.error(error);
       status.textContent = "❌ " + error.message;
