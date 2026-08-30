@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <button id="loadBtn">Aggiorna</button>
       <button id="topOnlyBtn">🔥 Solo TOP ≥80%</button>
     </div>
-
+<div id="betSlip"></div>
     <div id="status">Pronto</div>
     <div id="matches"></div>
   `;
@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const topOnlyBtn = document.getElementById("topOnlyBtn");
   const status = document.getElementById("status");
   const matches = document.getElementById("matches");
+  const betSlip = document.getElementById("betSlip");
 const standingsCache = {};
   let topOnly = false;
   const today = new Date();
@@ -37,7 +38,8 @@ const standingsCache = {};
 
     status.textContent = "⏳ Caricamento partite...";
     matches.innerHTML = "";
-
+betSlip.innerHTML = "";
+   const betSlipPicks = [];
     try {
 
       const date = dateInput.value;
@@ -260,6 +262,14 @@ const doubleChance12 = homeProb + awayProb;
 ]
 .filter(market => market.value >= 80)
 .sort((a, b) => b.value - a.value);
+      if (isPrematch && topMarkets.length > 0) {
+  betSlipPicks.push({
+    home: home,
+    away: away,
+    market: topMarkets[0].name,
+    value: topMarkets[0].value
+  });
+    } 
         card.style.cssText =
           "border:1px solid #ccc;padding:12px;margin:10px 0;border-radius:8px;";
 
@@ -283,6 +293,25 @@ if (topOnly && topMarkets.length === 0) continue;
         matches.appendChild(card);
       }
 status.textContent = "Partite trovate: " + visibleCount;
+  const proposedPicks = betSlipPicks
+  .sort((a, b) => b.value - a.value)
+  .slice(0, 4);
+
+if (proposedPicks.length >= 3) {
+  betSlip.innerHTML = `
+    <div style="border:2px solid #ccc;padding:12px;margin:15px 0;border-radius:8px;">
+      <h3>🔥 SCHEDINA TOP ≥80% PROPOSTA</h3>
+      ${proposedPicks.map((pick, index) => `
+        <div>
+          <b>${index + 1}. ${pick.home} - ${pick.away}</b><br>
+          ${pick.market} — ${pick.value}%
+        </div>
+      `).join("<hr>")}
+    </div>
+  `;
+} else {
+  betSlip.innerHTML = "<b>🔥 Nessuna schedina TOP da almeno 3 eventi disponibile.</b>";
+}
     } catch (error) {
       console.error(error);
       status.textContent = "❌ " + error.message;
