@@ -355,12 +355,12 @@ status.textContent = "Partite trovate: " + visibleCount;
 
 if (proposedPicks.length >= 3) {
   betSlip.innerHTML = `
-    <div style="border:2px solid #ccc;padding:12px;margin:15px 0;border-radius:8px;">
-      <h3>🔥 SCHEDINA TOP ≥80% PROPOSTA</h3>
+    <div style="border:1px solid #f59e0b;background:#172033;padding:16px;margin:18px 0;border-radius:14px;box-shadow:0 4px 12px rgba(0,0,0,0.25);line-height:1.5;">
+      <h3 style="margin:0 0 14px 0;font-size:21px;color:#fbbf24;">🔥 SCHEDINA TOP ≥80% PROPOSTA</h3>
       ${proposedPicks.map((pick, index) => `
-        <div>
+        <div style="padding:10px 0;">
           <b>${index + 1}. ${pick.home} - ${pick.away}</b><br>
-          ${pick.market} — ${pick.value}%
+          <span style="font-size:17px;color:#fbbf24;font-weight:bold;">${pick.market} — ${pick.value}%</span>
         </div>
       `).join("<hr>")}
     </div>
