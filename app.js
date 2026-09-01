@@ -270,24 +270,80 @@ const doubleChance12 = homeProb + awayProb;
     value: topMarkets[0].value
   });
     } 
-        card.style.cssText =
-          "border:1px solid #ccc;padding:12px;margin:10px 0;border-radius:8px;";
+        card.style.cssText = 
+          "border:1px solid #334155;background:#111c30;padding:16px;margin:14px 0;border-radius:14px;box-shadow:0 4px 12px rgba(0,0,0,0.25);line-height:1.5;";
+          
 
-        card.innerHTML = `
-          <small>${competition}</small><br>
-          <strong>${home} - ${away}</strong><br>
-          🕒 ${time}
-          ${score ? `<br>⚽ ${score}` : ""}
-          <br>🔎 League ID: ${game.league?.id || "N/D"} | Home ID: ${game.teams?.home?.id || "N/D"} | Away ID: ${game.teams?.away?.id || "N/D"}
-        ${isPrematch ? '<br>⚽ xG Casa: ' + xgHome.toFixed(2) + ' &nbsp; xG Trasferta: ' + xgAway.toFixed(2) : ''}
-        ${isPrematch ? '<br>🛡️ Doppia Chance: 1X ' + doubleChance1X + '% &nbsp; X2 ' + doubleChanceX2 + '% &nbsp; 12 ' + doubleChance12 + '%' : ''}
-      ${isPrematch ? '<br>⚽ Over 1.5: ' + over15Prob + '% &nbsp; Under 1.5: ' + under15Prob + '%<br>🎯 Over 2.5: ' + over25Prob + '% &nbsp; Under 2.5: ' + under25Prob + '%<br>🤝 GG: ' + ggProb + '% &nbsp; NG: ' + ngProb + '%' : ''}
-       ${isPrematch && topMarkets.length > 0 ? '<br>🔥 TOP ≥80%: ' + topMarkets.map(m => m.name + ' ' + m.value + '%').join(' | ') : ''}
-        ${isPrematch
-  ? '<br><b>📊 Pronostico pre-match:</b> 1: ' + prediction.home + '% &nbsp; X: ' + prediction.draw + '% &nbsp; 2: ' + prediction.away + '%'
-  : '<br><b>⏱️ Pronostico:</b> non disponibile (partita iniziata/terminata)'
-        }
-        `;
+      card.innerHTML = `
+  <div style="font-size:13px;opacity:0.75;margin-bottom:5px;">
+    ${competition}
+  </div>
+
+  <div style="font-size:20px;font-weight:bold;margin-bottom:6px;">
+    ${home} - ${away}
+  </div>
+
+  <div style="margin-bottom:12px;">
+    🕒 ${time}
+    ${score ? ` &nbsp; ⚽ ${score}` : ""}
+  </div>
+
+  <div style="font-size:12px;opacity:0.65;margin-bottom:12px;">
+    🔎 League ID: ${game.league?.id || "N/D"} |
+    Home ID: ${game.teams?.home?.id || "N/D"} |
+    Away ID: ${game.teams?.away?.id || "N/D"}
+  </div>
+
+  ${isPrematch ? `
+    <div style="border-top:1px solid #334155;padding-top:10px;margin-top:8px;">
+      <b>⚽ xG</b><br>
+      Casa: ${xgHome.toFixed(2)} &nbsp;&nbsp; Trasferta: ${xgAway.toFixed(2)}
+    </div>
+
+    <div style="border-top:1px solid #334155;padding-top:10px;margin-top:10px;">
+      <b>🛡️ DOPPIA CHANCE</b><br>
+      1X: ${doubleChance1X}% &nbsp;&nbsp;
+      X2: ${doubleChanceX2}% &nbsp;&nbsp;
+      12: ${doubleChance12}%
+    </div>
+
+    <div style="border-top:1px solid #334155;padding-top:10px;margin-top:10px;">
+      <b>⚽ OVER / UNDER 1.5</b><br>
+      Over 1.5: ${over15Prob}%<br>
+      Under 1.5: ${under15Prob}%
+    </div>
+
+    <div style="border-top:1px solid #334155;padding-top:10px;margin-top:10px;">
+      <b>🎯 OVER / UNDER 2.5</b><br>
+      Over 2.5: ${over25Prob}%<br>
+      Under 2.5: ${under25Prob}%
+    </div>
+
+    <div style="border-top:1px solid #334155;padding-top:10px;margin-top:10px;">
+      <b>🤝 GG / NG</b><br>
+      GG: ${ggProb}% &nbsp;&nbsp;
+      NG: ${ngProb}%
+    </div>
+
+    ${topMarkets.length > 0 ? `
+      <div style="border-top:1px solid #334155;padding-top:10px;margin-top:10px;font-weight:bold;">
+        🔥 TOP ≥80%:
+        ${topMarkets.map(m => `${m.name} ${m.value}%`).join(" | ")}
+      </div>
+    ` : ""}
+
+    <div style="border-top:1px solid #334155;padding-top:10px;margin-top:10px;">
+      <b>📊 PRONOSTICO PRE-MATCH</b><br>
+      1: ${prediction.home}% &nbsp;&nbsp;
+      X: ${prediction.draw}% &nbsp;&nbsp;
+      2: ${prediction.away}%
+    </div>
+  ` : `
+    <div style="border-top:1px solid #334155;padding-top:10px;margin-top:10px;">
+      ⏱️ Pronostico non disponibile (partita iniziata/terminata)
+    </div>
+  `}
+`;
 if (topOnly && topMarkets.length === 0) continue;
         visibleCount++;
         matches.appendChild(card);
