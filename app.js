@@ -272,8 +272,10 @@ const doubleChance12 = homeProb + awayProb;
     } 
         const hi = (v) =>
   v >= 80
-    ? `<span style="color:#f59e0b;font-weight:800;">${v}%</span>`
-    : `${v}%`;
+    ? `<span style="color:#ef4444;font-weight:800;">${v}%</span>`
+    : v >= 70
+      ? `<span style="color:#f59e0b;font-weight:800;">${v}%</span>`
+      : `${v}%`;
         card.style.cssText = 
           "border:1px solid #334155;background:#111c30;padding:16px;margin:14px 0;border-radius:14px;box-shadow:0 4px 12px rgba(0,0,0,0.25);line-height:1.5;";
           
