@@ -92,14 +92,27 @@ const score = homeGoals != null && awayGoals != null
         const card = document.createElement("div");
         const homeId = game.teams?.home?.id;
         const awayId = game.teams?.away?.id;
-        const leagueCode = game.league?.code;
-        let standings = standingsCache[leagueCode];
-if (!standings && leagueCode) {
-  const r = await fetch("https://football-stats-v3.onrender.com/api/football?path=/standings&league=" + leagueCode);
-  const data = await r.json();
-  standings = data.standings?.[0]?.table || [];
-  standingsCache[leagueCode] = standings;
-}          
+          const leagueId = game.league?.id;
+const season = game.league?.season;
+const standingsKey = `${leagueId}-${season}`;
+
+let standings = standingsCache[standingsKey] || [];
+
+if (leagueId && season && !standingsCache[standingsKey]) {
+  const r = await fetch(
+    "https://football-stats-v3.onrender.com/api/football?path=/standings&league=" +
+    leagueId +
+    "&season=" +
+    season
+  );
+
+  if (r.ok) {
+    const standingsData = await r.json();
+    standings = standingsData.standings?.[0]?.table || [];
+  }
+
+  standingsCache[standingsKey] = standings;
+}     
         const homeTeam = standings.find(t => t.team?.id === homeId);  
         const awayTeam = standings.find(t => t.team?.id === awayId);
         const homeForm = homeTeam?.form || "";
