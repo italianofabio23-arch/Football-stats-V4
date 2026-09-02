@@ -270,6 +270,10 @@ const doubleChance12 = homeProb + awayProb;
     value: topMarkets[0].value
   });
     } 
+        const hi = (v) =>
+  v >= 80
+    ? `<span style="color:#f59e0b;font-weight:800;">${v}%</span>`
+    : `${v}%`;
         card.style.cssText = 
           "border:1px solid #334155;background:#111c30;padding:16px;margin:14px 0;border-radius:14px;box-shadow:0 4px 12px rgba(0,0,0,0.25);line-height:1.5;";
           
@@ -302,27 +306,27 @@ const doubleChance12 = homeProb + awayProb;
 
     <div style="border-top:1px solid #334155;padding-top:10px;margin-top:10px;">
       <b>🛡️ DOPPIA CHANCE</b><br>
-      1X: ${doubleChance1X}% &nbsp;&nbsp;
-      X2: ${doubleChanceX2}% &nbsp;&nbsp;
-      12: ${doubleChance12}%
+      1X: ${hi(doubleChance1X)} &nbsp;&nbsp;
+X2: ${hi(doubleChanceX2)} &nbsp;&nbsp;
+12: ${hi(doubleChance12)}
     </div>
 
     <div style="border-top:1px solid #334155;padding-top:10px;margin-top:10px;">
       <b>⚽ OVER / UNDER 1.5</b><br>
-      Over 1.5: ${over15Prob}%<br>
-      Under 1.5: ${under15Prob}%
+      Over 1.5: ${hi(over15Prob)}<br>
+Under 1.5: ${hi(under15Prob)}
     </div>
 
     <div style="border-top:1px solid #334155;padding-top:10px;margin-top:10px;">
       <b>🎯 OVER / UNDER 2.5</b><br>
-      Over 2.5: ${over25Prob}%<br>
-      Under 2.5: ${under25Prob}%
+      Over 2.5: ${hi(over25Prob)}<br>
+Under 2.5: ${hi(under25Prob)}
     </div>
 
     <div style="border-top:1px solid #334155;padding-top:10px;margin-top:10px;">
       <b>🤝 GG / NG</b><br>
-      GG: ${ggProb}% &nbsp;&nbsp;
-      NG: ${ngProb}%
+      GG: ${hi(ggProb)} &nbsp;&nbsp;
+NG: ${hi(ngProb)}
     </div>
 
     ${topMarkets.length > 0 ? `
@@ -334,9 +338,9 @@ const doubleChance12 = homeProb + awayProb;
 
     <div style="border-top:1px solid #334155;padding-top:10px;margin-top:10px;">
       <b>📊 PRONOSTICO PRE-MATCH</b><br>
-      1: ${prediction.home}% &nbsp;&nbsp;
-      X: ${prediction.draw}% &nbsp;&nbsp;
-      2: ${prediction.away}%
+      1: ${hi(prediction.home)} &nbsp;&nbsp;
+X: ${hi(prediction.draw)} &nbsp;&nbsp;
+2: ${hi(prediction.away)}
     </div>
   ` : `
     <div style="border-top:1px solid #334155;padding-top:10px;margin-top:10px;">
