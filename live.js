@@ -158,13 +158,13 @@ async function loadLive() {
       liveAlert.classList.add("live-active");
 
       liveAlert.innerHTML =
-        `🔴 LIVE GOL — ${alerts.length} ` +
-        `${alerts.length === 1 ? "AVVISO" : "AVVISI"}`;
-    } else {
-      liveAlert.classList.remove("live-active");
+  `<span class="live-dot"></span> LIVE GOL — ${alerts.length} ` +
+  `${alerts.length === 1 ? "AVVISO" : "AVVISI"}`;
+} else {
+  liveAlert.classList.remove("live-active");
 
-      liveAlert.textContent =
-        "🔴 LIVE — nessun alert ≥80 al momento";
+  liveAlert.innerHTML =
+    `<span class="live-dot idle"></span> LIVE — nessun alert ≥80 al momento`;
     }
 
     if (!matches.length) {
