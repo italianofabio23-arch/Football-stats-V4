@@ -59,7 +59,7 @@ function renderMatch(match) {
 
       <hr>
 
-      <div>
+      <div class="live-stat">
         🎯 Tiri in porta:
         <strong>
           ${safeNumber(stats.shotsOnGoalHome)}
@@ -68,7 +68,7 @@ function renderMatch(match) {
         </strong>
       </div>
 
-      <div>
+      <div class="live-stat">
         🥅 Tiri totali:
         <strong>
           ${safeNumber(stats.totalShotsHome)}
@@ -77,7 +77,7 @@ function renderMatch(match) {
         </strong>
       </div>
 
-      <div>
+      <div class="live-stat">
         🚩 Corner:
         <strong>
           ${safeNumber(stats.cornersHome)}
@@ -86,7 +86,7 @@ function renderMatch(match) {
         </strong>
       </div>
 
-      <div>
+      <div class="live-stat">
         🟨 Cartellini:
         <strong>
           ${safeNumber(stats.yellowHome)}
