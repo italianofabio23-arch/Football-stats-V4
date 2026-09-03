@@ -13,3 +13,19 @@ h1 {
 p {
   color: #cbd5e1;
 }
+.live-btn {
+  display: inline-block;
+  color: #ffb000;
+  font-weight: 700;
+  font-size: 22px;
+  text-decoration: none;
+  padding: 10px 14px;
+  margin: 10px 0 20px;
+  border: 2px solid #ffb000;
+  border-radius: 10px;
+  background: rgba(255, 176, 0, 0.08);
+}
+
+.live-btn:visited {
+  color: #ffb000;
+}
