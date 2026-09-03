@@ -35,7 +35,10 @@ function renderMatch(match) {
   } else if (index >= 70) {
     level = "🟠 PRE-ALERT";
   }
-
+const indexClass =
+  index >= 80 ? "idx-alert" :
+  index >= 70 ? "idx-pre" :
+  "idx-watch";
   return `
     <div class="live-card">
 
@@ -101,10 +104,19 @@ function renderMatch(match) {
         ${level}
       </div>
 
-      <div class="live-index-number">
-        ⚽ Indice GOL LIVE:
-        <strong>${index}/100</strong>
-      </div>
+      <div class="live-index-number ${indexClass}">
+  <div class="live-index-row">
+    <span>⚽ Indice GOL LIVE</span>
+    <strong>${index}/100</strong>
+  </div>
+
+  <div class="live-index-bar">
+    <div
+      class="live-index-fill ${indexClass}"
+      style="width:${Math.max(0, Math.min(100, index))}%"
+    ></div>
+  </div>
+</div>
 
       <div class="live-note">
         Finestra analizzata: 20'–45' primo tempo
