@@ -4,7 +4,9 @@ const REFRESH_MS = 60000; // 1 minuto
 
 const liveAlert = document.getElementById("liveAlert");
 const liveMatches = document.getElementById("liveMatches");
-
+const liveTotalEl = document.getElementById("liveTotal");
+const window2045El = document.getElementById("window2045");
+const alerts80El = document.getElementById("alerts80");
 function safeNumber(value) {
   const n = Number(value);
   return Number.isFinite(n) ? n : 0;
@@ -127,7 +129,9 @@ async function loadLive() {
     }
 
     const data = await response.json();
-
+if (liveTotalEl) liveTotalEl.textContent = safeNumber(data.liveTotal);
+if (window2045El) window2045El.textContent = safeNumber(data.window2045);
+if (alerts80El) alerts80El.textContent = safeNumber(data.alerts80);
     let matches = Array.isArray(data.matches)
       ? data.matches
       : [];
