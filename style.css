@@ -203,3 +203,54 @@ a[href="index.html"]:visited {
   color: #ffb000;
   font-size: 19px;
   }
+/* ===== BARRA INDICE GOL LIVE ===== */
+
+.live-index-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 9px;
+}
+
+.live-index-bar {
+  width: 100%;
+  height: 14px;
+  background: #263244;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.live-index-fill {
+  height: 100%;
+  border-radius: 20px;
+  transition: width 0.5s ease;
+}
+
+/* 🟢 OSSERVAZIONE */
+.live-index-fill.idx-watch {
+  background: #22c55e;
+}
+
+.live-index-number.idx-watch strong {
+  color: #22c55e;
+}
+
+/* 🟠 PRE-ALERT 70-79 */
+.live-index-fill.idx-pre {
+  background: #ffb000;
+}
+
+.live-index-number.idx-pre strong {
+  color: #ffb000;
+}
+
+/* 🔴 ALERT GOL >=80 */
+.live-index-fill.idx-alert {
+  background: #ff3b30;
+  box-shadow: 0 0 12px #ff3b30;
+}
+
+.live-index-number.idx-alert strong {
+  color: #ff3b30;
+}
