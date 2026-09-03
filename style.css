@@ -126,3 +126,29 @@ a[href="index.html"] {
 a[href="index.html"]:visited {
   color: #ffb000;
   }
+
+/* ===== ALERT LIVE NELLA V4 ===== */
+
+.live-btn.has-live-alert {
+  background: rgba(255, 59, 48, 0.18);
+  border-color: #ff3b30;
+  color: #ffffff;
+  box-shadow: 0 0 18px #ff3b30;
+  animation: v4LiveAlertBlink 0.8s infinite;
+}
+
+.live-btn.has-live-alert:visited {
+  color: #ffffff;
+}
+
+@keyframes v4LiveAlertBlink {
+  0%, 100% {
+    box-shadow: 0 0 8px #ff3b30;
+    transform: scale(1);
+  }
+
+  50% {
+    box-shadow: 0 0 24px #ff3b30;
+    transform: scale(1.04);
+  }
+    }
