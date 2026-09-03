@@ -183,3 +183,23 @@ a[href="index.html"]:visited {
 .live-counters > div:last-child strong {
   color: #ff3b30;
 }
+
+/* ===== STATISTICHE PARTITA LIVE ===== */
+
+.live-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 11px 13px;
+  margin: 8px 0;
+  font-size: 17px;
+}
+
+.live-stat strong {
+  color: #ffb000;
+  font-size: 19px;
+  }
