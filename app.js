@@ -405,3 +405,44 @@ if (proposedPicks.length >= 3) {
 // ===== V4 - INIZIO ANALISI STATISTICHE =====
 console.log("Modulo analisi V4 pronto");
 // ===== V4 - FINE ANALISI STATISTICHE =====
+
+// ===== AVVISO LIVE NELLA V4 =====
+(function () {
+  const liveButton = document.querySelector(".live-btn");
+  if (!liveButton) return;
+
+  const LIVE_URL =
+    "https://football-stats-v3.onrender.com/api/live-goal";
+
+  async function checkLiveGoalAlert() {
+    try {
+      const r = await fetch(LIVE_URL);
+      if (!r.ok) throw new Error("LIVE non disponibile");
+
+      const data = await r.json();
+      const matches = Array.isArray(data.matches) ? data.matches : [];
+
+      const alerts = matches.filter(
+        match => Number(match.liveIndex || 0) >= 80
+      );
+
+      if (alerts.length > 0) {
+        liveButton.classList.add("has-live-alert");
+        liveButton.innerHTML =
+          `🔴 LIVE GOL 20'-45' • ${alerts.length} ALERT`;
+      } else {
+        liveButton.classList.remove("has-live-alert");
+        liveButton.innerHTML = "🔴 LIVE GOL 20'-45'";
+      }
+
+    } catch (error) {
+      console.error("Controllo LIVE V4:", error);
+      liveButton.classList.remove("has-live-alert");
+      liveButton.innerHTML = "🔴 LIVE GOL 20'-45'";
+    }
+  }
+
+  checkLiveGoalAlert();
+
+  setInterval(checkLiveGoalAlert, 60000);
+})();
