@@ -152,3 +152,34 @@ a[href="index.html"]:visited {
     transform: scale(1.04);
   }
     }
+/* ===== CONTATORI LIVE ===== */
+
+.live-counters {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin: 14px 0 24px;
+}
+
+.live-counters > div {
+  background: #111c30;
+  border: 1px solid #334155;
+  border-left: 4px solid #ffb000;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.live-counters strong {
+  color: #ffb000;
+  font-size: 22px;
+}
+
+.live-counters > div:last-child {
+  border-left-color: #ff3b30;
+}
+
+.live-counters > div:last-child strong {
+  color: #ff3b30;
+}
