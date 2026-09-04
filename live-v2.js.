@@ -157,3 +157,59 @@ if (alerts80El) alerts80El.textContent = safeNumber(data.alerts80);
         minute <= 45
       );
     });
+matches.sort(
+      (a, b) =>
+        safeNumber(b.liveIndex) -
+        safeNumber(a.liveIndex)
+    );
+
+    const alerts = matches.filter(
+      match => safeNumber(match.liveIndex) >= 80
+    );
+
+    if (alerts.length > 0) {
+      liveAlert.classList.add("live-active");
+
+      liveAlert.innerHTML =
+  `<span class="live-dot"></span> LIVE GOL — ${alerts.length} ` +
+  `${alerts.length === 1 ? "AVVISO" : "AVVISI"}`;
+} else {
+  liveAlert.classList.remove("live-active");
+
+  liveAlert.innerHTML =
+    `<span class="live-dot idle"></span> LIVE — nessun alert ≥80 al momento`;
+    }
+
+    if (!matches.length) {
+      liveMatches.innerHTML = `
+        <div class="live-card">
+          Nessuna partita tra il 20° e il 45°
+          del primo tempo in questo momento.
+        </div>
+      `;
+
+      return;
+    }
+
+    liveMatches.innerHTML =
+      matches.map(renderMatch).join("");
+
+  } catch (error) {
+    console.error("Errore LIVE:", error);
+
+    liveAlert.classList.remove("live-active");
+
+    liveAlert.textContent =
+      "❌ LIVE temporaneamente non disponibile";
+
+    liveMatches.innerHTML = `
+      <div class="live-card">
+        ${esc(error.message)}
+      </div>
+    `;
+  }
+}
+
+loadLive();
+
+setInterval(loadLive, REFRESH_MS);
