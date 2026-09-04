@@ -124,3 +124,36 @@ const indexClass =
     </div>
   `;
 }
+async function loadLive() {
+  try {
+    liveAlert.textContent =
+      "🔴 LIVE — aggiornamento partite in corso...";
+
+    const response = await fetch(
+      `${BACKEND}/api/live-goal-v2`,
+      { cache: "no-store" }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+if (liveTotalEl) liveTotalEl.textContent = safeNumber(data.liveTotal);
+if (window2045El) window2045El.textContent = safeNumber(data.window2045);
+if (alerts80El) alerts80El.textContent = safeNumber(data.alerts80);
+    let matches = Array.isArray(data.matches)
+      ? data.matches
+      : [];
+
+    // Sicurezza aggiuntiva anche lato V4:
+    // solo primo tempo tra 20' e 45'
+    matches = matches.filter(match => {
+      const minute = safeNumber(match.elapsed);
+
+      return (
+        match.status === "1H" &&
+        minute >= 20 &&
+        minute <= 45
+      );
+    });
