@@ -97,3 +97,30 @@ const indexClass =
           ${safeNumber(stats.yellowAway)}
         </strong>
       </div>
+<hr>
+
+      <div class="live-index">
+        ${level}
+      </div>
+
+      <div class="live-index-number ${indexClass}">
+  <div class="live-index-row">
+    <span>⚽ Indice GOL LIVE</span>
+    <strong>${index}/100</strong>
+  </div>
+
+  <div class="live-index-bar">
+    <div
+      class="live-index-fill ${indexClass}"
+      style="width:${Math.max(0, Math.min(100, index))}%"
+    ></div>
+  </div>
+</div>
+
+      <div class="live-note">
+        Finestra analizzata: 20'–45' primo tempo
+      </div>
+
+    </div>
+  `;
+}
